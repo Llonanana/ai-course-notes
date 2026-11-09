@@ -2,7 +2,7 @@
 
 把 AI 課程每週內容整理成「一週一頁」的講義網站。
 
-🔗 網站：`https://你的帳號.github.io/ai-course-notes/`
+🔗 網站：https://llonanana.github.io/ai-course-notes/
 
 ## 這個專案的重點
 
