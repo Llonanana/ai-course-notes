@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WEEK 07 讓 AI 看懂你的世界｜AI 課堂筆記本</title>
+  <meta name="description" content="用 RAG 把你的資料找出來塞進 prompt，讓 AI 根據事實回答。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="logo">AI</span><span class="text">AI 課堂<b>筆記本</b></span></a>
+      <nav></nav>
+    </div>
+  </header>
+
+  <main class="wrap lesson">
+    <!-- 1. 頁首 -->
+    <header class="lesson-head">
+      <span class="week-tag">WEEK 07</span>
+      <h1>讓 AI 看懂你的世界</h1>
+      <p class="summary">用 RAG 把你的資料找出來塞進 prompt，讓 AI 根據事實回答。</p>
+      <ul class="tags"><li>RAG</li><li>向量資料庫</li><li>LLM Wiki</li></ul>
+    </header>
+
+    <!-- 2. 本週一句話 -->
+    <section id="oneliner" class="block oneliner">
+      <h2><span class="no">01</span>本週一句話</h2>
+      <p class="quote">RAG 就是<mark>先幫 AI 找資料，再請它回答</mark>：把最相關的文字塊找出來，一起放進 prompt。</p>
+    </section>
+
+    <!-- 3. 重點整理 -->
+    <section id="points" class="block">
+      <h2><span class="no">02</span>重點整理</h2>
+      <div class="points">
+        <div class="point">
+          <h3>為什麼需要 RAG</h3>
+          <p>Prompt 的第一個重點是「正確的資訊」。與其自己把資料貼給 AI，不如讓電腦自動找出相關資料，這是降低 AI 答錯的好方法。重點在理解原理，不要被新名詞迷惑。</p>
+        </div>
+        <div class="point">
+          <h3>Embedding 模型</h3>
+          <p>把一段文字變成代表它意思的向量。訓練時讓「問題」和「答案」的向量靠近、無關的拉遠（對比學習）。有些模型會在前面加 query: 或 passage: 來區分。</p>
+        </div>
+        <div class="point">
+          <h3>怎麼切文字塊</h3>
+          <p>傳統做法是自動切成每塊 500 字、重疊 50 字。比較新的做法是自己切成想要的樣子，例如法規一條一條切，並加上 metadata：來源網址、日期、分類、作者等。</p>
+        </div>
+        <div class="point">
+          <h3>檢索流程</h3>
+          <p>文件切塊後做成向量資料庫；使用者發問時，問題也轉成向量，找出最接近的幾塊。找到的通常不只一塊，可能需要重新排序（rerank），或補上前後文。</p>
+        </div>
+        <div class="point">
+          <h3>真的需要 RAG 嗎？</h3>
+          <p>模型的上下文越來越長，也可以用 CAG：靠 KV-Cache 把資料全部塞給 LLM。LLM 的「長期記憶」也能用 RAG 做，把過去的對話做成向量資料庫。</p>
+        </div>
+        <div class="point">
+          <h3>LLM Wiki</h3>
+          <p>Karpathy 在 2026 年 4 月分享：把資料放進 raw/，讓 LLM「編譯」成一整套互相連結的 .md wiki，再拿來問答、把輸出歸檔回 wiki、定期健檢。約 100 篇、40 萬字的規模，不一定需要複雜的 RAG。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 核心公式／圖解 -->
+    <section id="formula" class="block">
+      <h2><span class="no">03</span>核心公式</h2>
+      <div class="flow"><span>你的文件</span><i>→</i><span>切成文字塊 + metadata</span><i>→</i><span>Embedding</span><i>→</i><span>向量資料庫</span></div>
+      <div class="flow"><span>使用者問題</span><i>→</i><span>Embedding</span><i>→</i><span>找最接近的文字塊</span><i>→</i><span>Rerank</span><i>→</i><span class="hl">放進 prompt 給 LLM</span></div>
+      <p>最後組成的 prompt 大概長這樣：</p>
+      <pre class="tree">請根據 {retrieved_chunks} 裡的資訊，
+      來回應使用者的問題：{question}</pre>
+      <div class="table-scroll"><table>
+        <thead><tr><th>做法</th><th>怎麼給 AI 資料</th><th>適合</th></tr></thead>
+        <tbody>
+          <tr><td>RAG</td><td>每次只找出最相關的幾段</td><td>資料量大、需要精準檢索</td></tr>
+          <tr><td>CAG</td><td>用 KV-Cache 把全部資料預先存好給 LLM</td><td>資料量放得進上下文</td></tr>
+          <tr><td>LLM Wiki</td><td>讓 LLM 自己整理、維護一套 Markdown 知識庫</td><td>個人研究、持續累積的主題</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">課堂範例的 metadata 會寫上標題、資料類型、主管機關、來源網址和整理日期，還附上「檢索練習問題」，方便測試有沒有找對。</p>
+    </section>
+
+    <!-- 5. 名詞小辭典 -->
+    <section id="glossary" class="block">
+      <h2><span class="no">04</span>名詞小辭典</h2>
+      <dl class="glossary">
+        <dt>RAG（檢索增強生成）</dt><dd>先檢索相關資料，再交給 LLM 生成回答。</dd>
+        <dt>Embedding 模型</dt><dd>把文字轉成代表意思的向量的模型。</dd>
+        <dt>文字塊（Chunk）</dt><dd>文件切出來、拿來做檢索的一小段文字。</dd>
+        <dt>Metadata</dt><dd>文字塊的附加資訊，例如來源、頁數、日期、分類。</dd>
+        <dt>向量資料庫</dt><dd>存放大量向量、能快速找出最相近向量的資料庫。</dd>
+        <dt>重新排序（Rerank）</dt><dd>把初步找到的結果再依相關程度排一次。</dd>
+        <dt>CAG / KV-Cache</dt><dd>把資料的鍵值先算好存起來，整份交給 LLM 使用。</dd>
+        <dt>LLM Wiki</dt><dd>由 LLM 撰寫並維護的個人 Markdown 知識庫。</dd>
+      </dl>
+    </section>
+
+    <!-- 6. 自我測驗 -->
+    <section id="quiz" class="block quiz">
+      <h2><span class="no">05</span>自我測驗</h2>
+      <details>
+        <summary>Q1. RAG 主要在補強 prompt 兩個重點中的哪一個？</summary>
+        <p>「正確的資訊」，讓電腦自動找出相關資料放進 prompt。</p>
+      </details>
+      <details>
+        <summary>Q2. 切文字塊時，為什麼常常讓相鄰的塊重疊？</summary>
+        <p>避免一句重要的話剛好被切斷，造成兩邊都不完整、找不到。</p>
+      </details>
+      <details>
+        <summary>Q3. 什麼情況下可能不需要 RAG？</summary>
+        <p>資料量不大、放得進模型的上下文時，可以直接全部給它（例如 CAG）。Karpathy 的 LLM Wiki 在約百篇文章的規模，也不需要複雜的 RAG。</p>
+      </details>
+    </section>
+
+    <!-- 7. 我的心得 -->
+    <section id="reflection" class="block reflection">
+      <h2><span class="no">06</span>我的心得</h2>
+      <p>RAG 聽起來很高深，其實就是「先查資料再回答」，跟我寫報告的流程一樣。</p>
+      <p>LLM Wiki 讓我想到這個講義網站：把原始資料交給 AI，照固定規則整理成頁面，知識就會一直累積下去。</p>
+    </section>
+
+    <nav class="pager" data-current="07-rag" aria-label="上一週下一週"></nav>
+  </main>
+
+  <footer>
+    <div class="wrap">AI 課堂筆記本 · 內容整理自第 07 週課堂講義「讓 AI 看懂你的世界」</div>
+  </footer>
+
+  <script src="../assets/lessons.js"></script>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

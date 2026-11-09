@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WEEK 08 教 AI 做事的方法｜AI 課堂筆記本</title>
+  <meta name="description" content="AI Agent 的四種設計模式：反思、工具、規劃、多代理合作。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="logo">AI</span><span class="text">AI 課堂<b>筆記本</b></span></a>
+      <nav></nav>
+    </div>
+  </header>
+
+  <main class="wrap lesson">
+    <!-- 1. 頁首 -->
+    <header class="lesson-head">
+      <span class="week-tag">WEEK 08</span>
+      <h1>教 AI 做事的方法：AI Agent 與設計模式</h1>
+      <p class="summary">AI Agent 的四種設計模式：反思、工具、規劃、多代理合作。</p>
+      <ul class="tags"><li>AI Agent</li><li>Tool Use</li><li>Vibe Coding</li></ul>
+    </header>
+
+    <!-- 2. 本週一句話 -->
+    <section id="oneliner" class="block oneliner">
+      <h2><span class="no">01</span>本週一句話</h2>
+      <p class="quote">AI Agent 就是<mark>教 AI 用我們的方法做事</mark>：像人一樣會規劃、查資料、用工具，寫完還會再改。</p>
+    </section>
+
+    <!-- 3. 重點整理 -->
+    <section id="points" class="block">
+      <h2><span class="no">02</span>重點整理</h2>
+      <div class="points">
+        <div class="point">
+          <h3>什麼是 Agent</h3>
+          <p>教科書的定義是：能透過感測器感知環境、透過致動器採取行動的實體。這門課的定義更直接：AI Agent = AI Model + Harness，也就是教 AI 照我們做事的方法做事。</p>
+        </div>
+        <div class="point">
+          <h3>為什麼一次生成不夠</h3>
+          <p>直接下 prompt 等於要人一口氣寫完文章，不能刪、不能改。人都是邊寫、邊試、邊改，還會查資料、按計算機。RAG 自動找資料，其實就是一種 agent。</p>
+        </div>
+        <div class="point">
+          <h3>Reflection 反思</h3>
+          <p>第一個 LLM 寫初稿，第二個 LLM 當評論員給改善建議，第一個再修改，可以重複好幾輪。評論員也可以換成不同的模型。</p>
+        </div>
+        <div class="point">
+          <h3>Tool Use 使用工具</h3>
+          <p>LLM 不擅長的事（精確計算、即時數據、上網搜尋）就交給工具。LLM 決定要呼叫哪個函式，拿回 JSON 結果，再根據結果回答。MCP 標準化 agent 使用工具的方式，A2A 則定義 agent 之間怎麼溝通。</p>
+        </div>
+        <div class="point">
+          <h3>Planning 與多代理合作</h3>
+          <p>先請 LLM 想一想、打草稿再回答，例如思維鏈（CoT）；DeepSeek-R1 會把思考包在 &lt;think&gt; 標籤裡。複雜任務可以由一個像 PM 的 LLM 拆解，分派給多個 agent 分工。</p>
+        </div>
+        <div class="point">
+          <h3>Vibe Coding</h3>
+          <p>Karpathy 在 2025 年 2 月創的詞：忘了程式碼的存在、不看 diff、有錯就直接貼給 AI。適合週末小專案和原型，不適合要正式上線、出錯會有後果的程式。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 核心公式／圖解 -->
+    <section id="formula" class="block">
+      <h2><span class="no">03</span>核心公式</h2>
+      <p>吳恩達提出的四種 AI Agent 設計模式：</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>模式</th><th>一句話</th><th>例子</th></tr></thead>
+        <tbody>
+          <tr><td>Reflection</td><td>寫完請別人評論，再改</td><td>作者 LLM ⇄ 評論員 LLM</td></tr>
+          <tr><td>Tool Use</td><td>不會的事交給工具</td><td>計算機、搜尋、資料庫、MCP</td></tr>
+          <tr><td>Planning</td><td>先規劃，再動手</td><td>思維鏈（CoT）、推理模型</td></tr>
+          <tr><td>Multiagent</td><td>分工合作</td><td>PM 拆任務，各 agent 負責一塊</td></tr>
+        </tbody>
+      </table></div>
+      <p>Tool Use 範例：飲料店 ChatBot（使用者說「我想訂 20 杯麥茶」）</p>
+      <div class="flow"><span>使用者問題</span><i>→</i><span>LLM 選工具</span><i>→</i><span>quote_order("麥茶", 20)</span><i>→</i><span>JSON 結果</span><i>→</i><span class="hl">「沒問題！共 600 元」</span></div>
+      <pre class="tree">{
+        "item_name": "麥茶",
+        "quantity": 20,
+        "unit_price": 30,
+        "total": 600,
+        "stock": 30
+      }</pre>
+      <p class="note">Karpathy 認為 AGI 還要大約十年，現在的 AI 還不像真正的人類實習生。另外，他對 Vibe Coding 的看法常被誤讀：他自己也說這只適合拿來玩、出錯沒關係的專案。</p>
+    </section>
+
+    <!-- 5. 名詞小辭典 -->
+    <section id="glossary" class="block">
+      <h2><span class="no">04</span>名詞小辭典</h2>
+      <dl class="glossary">
+        <dt>AI Agent</dt><dd>能自己規劃、使用工具、多步驟完成任務的 AI。</dd>
+        <dt>Harness</dt><dd>模型以外的工作裝備，讓 AI 能真的動手做事。</dd>
+        <dt>Reflection（反思）</dt><dd>讓 LLM 評論自己或別人的輸出，再修改。</dd>
+        <dt>Tool Use / Function Calling</dt><dd>LLM 決定呼叫哪個函式，並用回傳的結果回答。</dd>
+        <dt>MCP</dt><dd>Anthropic 提出的協定，標準化 AI 與外部工具、資料的連接方式。</dd>
+        <dt>A2A</dt><dd>Google 提出的協定，定義 agent 與 agent 之間怎麼溝通。</dd>
+        <dt>思維鏈（Chain-of-Thought）</dt><dd>先把思考步驟寫出來，再給答案。</dd>
+        <dt>Vibe Coding</dt><dd>完全交給 AI 寫程式、自己不看程式碼的開發方式。</dd>
+      </dl>
+    </section>
+
+    <!-- 6. 自我測驗 -->
+    <section id="quiz" class="block quiz">
+      <h2><span class="no">05</span>自我測驗</h2>
+      <details>
+        <summary>Q1. 為什麼說 RAG 也是一種 AI Agent？</summary>
+        <p>原本要人自己找資料，RAG 讓電腦自動檢索相關資訊再交給 LLM，也就是 AI 照我們的方法多做了一步。</p>
+      </details>
+      <details>
+        <summary>Q2. Tool Use 中，LLM 參與了哪兩個階段？</summary>
+        <p>第一，決定要呼叫哪個工具、帶什麼參數；第二，拿到工具回傳的資料後，整理成給使用者的回答。</p>
+      </details>
+      <details>
+        <summary>Q3. Vibe Coding 適合用在哪裡？不適合用在哪裡？</summary>
+        <p>適合週末小專案、試做原型；不適合要正式上線、出錯會造成問題的程式。</p>
+      </details>
+    </section>
+
+    <!-- 7. 我的心得 -->
+    <section id="reflection" class="block reflection">
+      <h2><span class="no">06</span>我的心得</h2>
+      <p>四種設計模式其實就是好員工的工作習慣：先規劃、會用工具、寫完自我檢查、懂得分工。</p>
+      <p>這個網站本身也算一次小小的 agentic 練習：我寫好規則，AI 照規則一頁一頁做出來，我負責檢查。</p>
+    </section>
+
+    <nav class="pager" data-current="08-agent-patterns" aria-label="上一週下一週"></nav>
+  </main>
+
+  <footer>
+    <div class="wrap">AI 課堂筆記本 · 內容整理自第 08 週課堂講義「教 AI 做事的方法」</div>
+  </footer>
+
+  <script src="../assets/lessons.js"></script>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

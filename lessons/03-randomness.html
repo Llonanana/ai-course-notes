@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WEEK 03 AI 為什麼每次都不一樣？｜AI 課堂筆記本</title>
+  <meta name="description" content="生成式 AI 的隨機性，來自「依機率抽樣」與隨機的潛在向量。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="logo">AI</span><span class="text">AI 課堂<b>筆記本</b></span></a>
+      <nav></nav>
+    </div>
+  </header>
+
+  <main class="wrap lesson">
+    <!-- 1. 頁首 -->
+    <header class="lesson-head">
+      <span class="week-tag">WEEK 03</span>
+      <h1>AI 為什麼每次都不一樣？</h1>
+      <p class="summary">生成式 AI 的隨機性，來自「依機率抽樣」與隨機的潛在向量。</p>
+      <ul class="tags"><li>GAN</li><li>Cross Entropy</li><li>機率抽樣</li></ul>
+    </header>
+
+    <!-- 2. 本週一句話 -->
+    <section id="oneliner" class="block oneliner">
+      <h2><span class="no">01</span>本週一句話</h2>
+      <p class="quote">生成式 AI 不一定選分數最高的答案，而是<mark>依機率抽一個</mark>，所以同樣的問題，每次答案都可能不一樣。</p>
+    </section>
+
+    <!-- 3. 重點整理 -->
+    <section id="points" class="block">
+      <h2><span class="no">02</span>重點整理</h2>
+      <div class="points">
+        <div class="point">
+          <h3>創作不是函數</h3>
+          <p>同一個輸入可以有很多種好作品，是「一對多」。如果硬要訓練，模型會學到所有答案的平均，結果變得四不像。</p>
+        </div>
+        <div class="point">
+          <h3>加入隨機的「想法」</h3>
+          <p>解法是先隨機產生一個潛在向量 z，把它當成天馬行空的想法，再從想法生成作品。z 不同，作品就不同。</p>
+        </div>
+        <div class="point">
+          <h3>GAN：生成器與鑑別器對抗</h3>
+          <p>生成器負責創作，鑑別器負責判斷像不像真的。先固定生成器訓練鑑別器的品味，再固定鑑別器訓練生成器去騙過它。StyleGAN、Pix2pix、CycleGAN 都是代表作，後來被 diffusion model 取代。</p>
+        </div>
+        <div class="point">
+          <h3>Cross entropy：只在意正確答案</h3>
+          <p>資訊量是 −log p，越不可能發生的事越讓人驚訝。分類時 cross entropy 就是 −log(正確類別的機率)，正確答案你給的機率越低，扣分越重。</p>
+        </div>
+        <div class="point">
+          <h3>KL 散度：比較兩個分布</h3>
+          <p>KL 散度等於 cross entropy 減掉真實分布的 entropy。要學「老師模型」的 soft target（例如知識蒸餾）時，就會用到它。</p>
+        </div>
+        <div class="point">
+          <h3>依機率抽，才有創意</h3>
+          <p>八哥辨識選最高分很合理，但咖啡推薦依機率抽比較有趣。語言模型也是依機率抽字。生成式 AI 和鑑別式 AI 原理其實一樣，差在怎麼用輸出。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 核心公式／圖解 -->
+    <section id="formula" class="block">
+      <h2><span class="no">03</span>核心公式</h2>
+      <p>GAN 的架構：</p>
+      <div class="flow"><span>隨機 z</span><i>→</i><span>生成器 G</span><i>→</i><span>作品</span><i>→</i><span>鑑別器 D</span><i>→</i><span class="hl">真的？假的？</span></div>
+      <div class="math">min_G max_D  E[log D(x)] + E[log(1 − D(G(z)))]</div>
+      <p>分類問題的 cross entropy 與 KL 散度：</p>
+      <div class="math">H(P, Q) = −Σ pᵢ log qᵢ　→　one-hot 時 = −log ŷ<sub>正確</sub></div>
+      <div class="math">D<sub>KL</sub>(P ‖ Q) = H(P, Q) − H(P)</div>
+      <p>同樣的輸出，兩種用法：</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th></th><th>選最高分</th><th>依機率抽</th></tr></thead>
+        <tbody>
+          <tr><td>例子</td><td>八哥辨識：60% 八哥，就回答八哥</td><td>咖啡推薦：60% 抽到 A、30% 抽到 B</td></tr>
+          <tr><td>結果</td><td>同樣輸入，永遠同樣輸出</td><td>同樣輸入，每次可能不同</td></tr>
+          <tr><td>適合</td><td>需要穩定答案的判斷</td><td>創作、推薦、聊天</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">本週作業用「AI Canvas」設計自己的呆萌型 AI：寫下要解決的問題、AI 的任務、輸入（所有特徵）、輸出（一定要是 tensor），以及數據好不好找。</p>
+    </section>
+
+    <!-- 5. 名詞小辭典 -->
+    <section id="glossary" class="block">
+      <h2><span class="no">04</span>名詞小辭典</h2>
+      <dl class="glossary">
+        <dt>潛在向量（Latent Vector）</dt><dd>數據的特徵表現，也可以當成 AI 隨機抽出的「想法」。</dd>
+        <dt>GAN（生成對抗網路）</dt><dd>生成器和鑑別器兩個神經網路互相對抗、一起變強。</dd>
+        <dt>鑑別器（Discriminator）</dt><dd>GAN 裡負責判斷作品像不像真的的神經網路。</dd>
+        <dt>資訊量</dt><dd>−log p；越不可能發生的事，資訊量越大。</dd>
+        <dt>熵（Entropy）</dt><dd>資訊量的平均值，常被說成「亂度」。</dd>
+        <dt>交叉熵（Cross Entropy）</dt><dd>比較真實分布和模型分布的 loss，分類問題最常用。</dd>
+        <dt>KL 散度（KL Divergence）</dt><dd>兩個機率分布差多少；兩者相同時為 0。</dd>
+      </dl>
+    </section>
+
+    <!-- 6. 自我測驗 -->
+    <section id="quiz" class="block quiz">
+      <h2><span class="no">05</span>自我測驗</h2>
+      <details>
+        <summary>Q1. 為什麼不能直接用「一個輸入對一個輸出」來訓練創作型 AI？</summary>
+        <p>創作是一對多，同一輸入有很多好答案。硬要訓練，模型會學到平均值，作品變得四不像。</p>
+      </details>
+      <details>
+        <summary>Q2. GAN 裡的生成器和鑑別器各負責什麼？</summary>
+        <p>生成器從隨機的 z 創作作品；鑑別器判斷作品是真實的還是生成的。兩者互相對抗、一起變強。</p>
+      </details>
+      <details>
+        <summary>Q3. 正確答案是 [1,0,0]、模型輸出 [0.6,0.3,0.1]，cross entropy 是多少？</summary>
+        <p>只看正確類別的機率：−log 0.6。正確答案的機率越低，扣分越多。</p>
+      </details>
+    </section>
+
+    <!-- 7. 我的心得 -->
+    <section id="reflection" class="block reflection">
+      <h2><span class="no">06</span>我的心得</h2>
+      <p>我一直以為 ChatGPT 每次回答不一樣是 bug，原來是它刻意「依機率抽」的結果，這正是它能創作的原因。</p>
+      <p>Cross entropy 用「驚訝程度」來解釋也很好記：明明是正確答案，你卻說機率很低，當然要重扣。</p>
+    </section>
+
+    <nav class="pager" data-current="03-randomness" aria-label="上一週下一週"></nav>
+  </main>
+
+  <footer>
+    <div class="wrap">AI 課堂筆記本 · 內容整理自第 03 週課堂講義「AI 為什麼每次都不一樣？」</div>
+  </footer>
+
+  <script src="../assets/lessons.js"></script>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

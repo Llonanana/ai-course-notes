@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WEEK 01 如何不焦慮地學 AI｜AI 課堂筆記本</title>
+  <meta name="description" content="懂原理就不焦慮：現代 AI 只是一個呆萌型 AI 機器人。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="logo">AI</span><span class="text">AI 課堂<b>筆記本</b></span></a>
+      <nav></nav>
+    </div>
+  </header>
+
+  <main class="wrap lesson">
+    <!-- 1. 頁首 -->
+    <header class="lesson-head">
+      <span class="week-tag">WEEK 01</span>
+      <h1>如何不焦慮地學 AI</h1>
+      <p class="summary">懂原理就不焦慮：現代 AI 只是一個呆萌型 AI 機器人。</p>
+      <ul class="tags"><li>學習地圖</li><li>呆萌型 AI</li><li>Colab</li></ul>
+    </header>
+
+    <!-- 2. 本週一句話 -->
+    <section id="oneliner" class="block oneliner">
+      <h2><span class="no">01</span>本週一句話</h2>
+      <p class="quote">現代 AI 只是一個<mark>呆萌型 AI 機器人</mark>：我們告訴它輸入是什麼、輸出是什麼，它才知道要做什麼。</p>
+    </section>
+
+    <!-- 3. 重點整理 -->
+    <section id="points" class="block">
+      <h2><span class="no">02</span>重點整理</h2>
+      <div class="points">
+        <div class="point">
+          <h3>學 AI 的三種焦慮</h3>
+          <p>會不會被 AI 取代？每天都有新工具，不知道該學哪個？AI 看起來好難？這三種焦慮，大多來自不知道 AI 到底怎麼運作。</p>
+        </div>
+        <div class="point">
+          <h3>懂原理就是解藥</h3>
+          <p>知道原理，就知道 AI 的限制在哪、該怎麼突破，也明白為什麼某種 prompt 比較好用。各家基礎模型其實差不多，不用天天擔心 A 模型是不是比 B 強。</p>
+        </div>
+        <div class="point">
+          <h3>AI 是呆萌型機器人</h3>
+          <p>它不會分析、沒有意識，也不知道自己在做什麼，只是把輸入對應到輸出。例如八哥辨識：輸入一張照片，輸出三個數字，代表三種八哥的分數。</p>
+        </div>
+        <div class="point">
+          <h3>生成式 AI 也一樣</h3>
+          <p>文字生圖：輸入 prompt，輸出一張圖。文字生成：輸入 prompt，輸出一段文字。看起來很神奇，但本質上還是同一種「輸入 → 輸出」的機器人。</p>
+        </div>
+        <div class="point">
+          <h3>真的懂，就要能創造</h3>
+          <p>1950 年圖靈就問過：如果跟一台打字機對話，你分得出對方是人還是機器嗎？費曼也說：「What I cannot create, I do not understand.」這門課的目標是理解，也要能做出東西。</p>
+        </div>
+        <div class="point">
+          <h3>這學期的學習地圖</h3>
+          <p>從 Chat Bot 開始，一路學到 Prompt、Context、Harness、Loop、Graph Engineering，最後會發現 AI Agent 其實就是「教 AI 用我們的方法做事」。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 核心公式／圖解 -->
+    <section id="formula" class="block">
+      <h2><span class="no">03</span>核心公式</h2>
+      <div class="formula">
+        <div class="term">輸入<small>照片、文字、數據</small></div>
+        <div class="op">→</div>
+        <div class="term">f<sub>θ</sub><small>呆萌型 AI 機器人</small></div>
+        <div class="op">→</div>
+        <div class="term">輸出<small>分數、文字、圖片</small></div>
+      </div>
+      <p>這學期的學習路線：</p>
+      <div class="flow"><span>Chat Bot</span><i>→</i><span>Prompt</span><i>→</i><span>Context</span><i>→</i><span>Harness</span><i>→</i><span>Loop</span><i>→</i><span>Graph</span><i>→</i><span class="hl">AI Agent</span></div>
+      <p>上課用的 Colab（雲端版 Jupyter Notebook）必備操作：</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>操作</th><th>做什麼</th></tr></thead>
+        <tbody>
+          <tr><td><code>Shift</code> + <code>Enter</code></td><td>執行目前的儲存格，最重要的動作</td></tr>
+          <tr><td><code>%matplotlib inline</code></td><td>魔術指令：讓圖直接顯示在網頁上</td></tr>
+          <tr><td><code>!pwd</code></td><td>驚嘆號開頭：直接執行系統指令</td></tr>
+          <tr><td><code>Tab</code></td><td>自動補完；打 <code>\pi</code> 再按 Tab 還能變成 π</td></tr>
+          <tr><td><code>print?</code></td><td>問號查說明</td></tr>
+          <tr><td>Markdown 儲存格</td><td>寫筆記、標題、清單、超連結，還能寫 LaTeX 數學式</td></tr>
+          <tr><td><code>interact(f, x=3)</code></td><td>ipywidgets：任何函式都能變成有滑桿的互動介面</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Colab 可以在「編輯 &gt; 筆記本設定」開啟 GPU；在「工具 &gt; 設定」還能打開柯基、貓咪、螃蟹模式。</p>
+    </section>
+
+    <!-- 5. 名詞小辭典 -->
+    <section id="glossary" class="block">
+      <h2><span class="no">04</span>名詞小辭典</h2>
+      <dl class="glossary">
+        <dt>生成式 AI（Generative AI）</dt><dd>會「創作」的 AI，例如寫文章、畫圖。</dd>
+        <dt>呆萌型 AI 機器人</dt><dd>這門課對 AI 模型的比喻：只知道輸入和輸出，自己不知道在做什麼。</dd>
+        <dt>函數學習機 f<sub>θ</sub></dt><dd>AI 模型本質上是一個函數，θ 是它要學的參數。</dd>
+        <dt>Colab</dt><dd>Google 的雲端 Python 筆記本，免安裝、有免費 GPU。</dd>
+        <dt>Jupyter Notebook</dt><dd>可以邊寫程式、邊看結果、邊寫筆記的環境，前身是 IPython Notebook。</dd>
+        <dt>魔術指令（Magic Command）</dt><dd>Jupyter 中以 % 開頭的便利指令，例如 %run、%timeit。</dd>
+      </dl>
+    </section>
+
+    <!-- 6. 自我測驗 -->
+    <section id="quiz" class="block quiz">
+      <h2><span class="no">05</span>自我測驗</h2>
+      <details>
+        <summary>Q1. 為什麼這門課說「懂原理才不會焦慮」？</summary>
+        <p>懂原理就知道 AI 的限制和突破方法，也知道 prompt 為什麼有用。各家基礎模型差不多，不必追著每個新工具跑。</p>
+      </details>
+      <details>
+        <summary>Q2. 八哥辨識 AI 的輸入和輸出分別是什麼？</summary>
+        <p>輸入是一張照片，輸出是三個數字，分別代表三種八哥的分數。</p>
+      </details>
+      <details>
+        <summary>Q3. 在 Colab 執行一個儲存格要按哪個組合鍵？</summary>
+        <p>Shift + Enter。</p>
+      </details>
+    </section>
+
+    <!-- 7. 我的心得 -->
+    <section id="reflection" class="block reflection">
+      <h2><span class="no">06</span>我的心得</h2>
+      <p>以前我覺得 AI 很神秘，常常擔心自己跟不上。這週聽到「AI 只是呆萌型機器人」，壓力小了很多：它不懂自己在做什麼，只是輸入對到輸出。</p>
+      <p>之後看到新的 AI 工具，我會先問：它的輸入是什麼？輸出是什麼？這樣就不會被一堆名詞嚇到。</p>
+    </section>
+
+    <nav class="pager" data-current="01-no-anxiety" aria-label="上一週下一週"></nav>
+  </main>
+
+  <footer>
+    <div class="wrap">AI 課堂筆記本 · 內容整理自第 01 週課堂講義「如何不焦慮地學 AI」</div>
+  </footer>
+
+  <script src="../assets/lessons.js"></script>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WEEK 05 AI 怎麼記得前面說過什麼？｜AI 課堂筆記本</title>
+  <meta name="description" content="從 RNN 到 Transformer：注意力機制讓每個字都能回頭看全文。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="logo">AI</span><span class="text">AI 課堂<b>筆記本</b></span></a>
+      <nav></nav>
+    </div>
+  </header>
+
+  <main class="wrap lesson">
+    <!-- 1. 頁首 -->
+    <header class="lesson-head">
+      <span class="week-tag">WEEK 05</span>
+      <h1>AI 怎麼記得前面說過什麼？</h1>
+      <p class="summary">從 RNN 到 Transformer：注意力機制讓每個字都能回頭看全文。</p>
+      <ul class="tags"><li>RNN</li><li>Attention</li><li>Transformer</li></ul>
+    </header>
+
+    <!-- 2. 本週一句話 -->
+    <section id="oneliner" class="block oneliner">
+      <h2><span class="no">01</span>本週一句話</h2>
+      <p class="quote">Transformer 讓每個字都能<mark>回頭「注意」前面所有的字</mark>，而且一次算完，不必像 RNN 一個字一個字讀。</p>
+    </section>
+
+    <!-- 3. 重點整理 -->
+    <section id="points" class="block">
+      <h2><span class="no">02</span>重點整理</h2>
+      <div class="points">
+        <div class="point">
+          <h3>RNN：把記憶傳回來</h3>
+          <p>RNN 神經元和一般神經元一樣，只是除了這次的輸入，還會接收上一次的輸出 h<sub>t−1</sub> 當作記憶。缺點是必須一個字接一個字算，很慢。</p>
+        </div>
+        <div class="point">
+          <h3>Attention：Q、K、V</h3>
+          <p>每個字都產生三個向量：query（問題）、key、value。拿 q 跟每個 k 做內積，得到相關強度，經 softmax 變成權重，再把所有 v 加權相加。</p>
+        </div>
+        <div class="point">
+          <h3>Self-attention 與多頭</h3>
+          <p>Self-attention 就是每個字輪流當 q。整個過程只是矩陣乘法，可以一次算完。用好幾組不同的 W 各算一次，就是 multi-head attention。</p>
+        </div>
+        <div class="point">
+          <h3>為什麼要除以 √d<sub>k</sub></h3>
+          <p>Softmax 是「贏者通吃」，分數差一點，權重就差很多。把分數除以一個數、拉回 0 附近，權重就會比較平均。</p>
+        </div>
+        <div class="point">
+          <h3>位置編碼</h3>
+          <p>一次平行計算的話，模型不知道字的先後順序，所以要在詞嵌入加上位置資訊。原論文用不同頻率的 sin、cos，就像好幾個轉速不同的時鐘。</p>
+        </div>
+        <div class="point">
+          <h3>讓網路又深又穩</h3>
+          <p>ResNet 的跳接把輸出變成 z + ℓ(z)，每層只需要學還沒學到的部分。再搭配 Layer Normalization（Llama 用 RMSNorm），深層網路也能穩定訓練。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 核心公式／圖解 -->
+    <section id="formula" class="block">
+      <h2><span class="no">03</span>核心公式</h2>
+      <div class="math">Attention(Q, K, V) = softmax( QKᵀ / √d<sub>k</sub> ) V</div>
+      <div class="flow"><span>字</span><i>→</i><span>詞嵌入 + 位置編碼</span><i>→</i><span>Q = XW<sup>Q</sup>, K = XW<sup>K</sup>, V = XW<sup>V</sup></span><i>→</i><span>多頭注意力</span><i>→</i><span class="hl">更懂上下文的向量</span></div>
+      <div class="table-scroll"><table>
+        <thead><tr><th></th><th>RNN</th><th>Transformer</th></tr></thead>
+        <tbody>
+          <tr><td>怎麼記住前文</td><td>把上一步的 hidden state 傳回來</td><td>每個字直接注意所有字</td></tr>
+          <tr><td>計算方式</td><td>一個字一個字算</td><td>矩陣乘法一次算完，可以平行</td></tr>
+          <tr><td>字的順序</td><td>天生就有</td><td>要另外加位置編碼</td></tr>
+          <tr><td>代表</td><td>LSTM、GRU</td><td>GPT、Llama 等 LLM</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Transformer 不只能處理文字，圖像、聲音、時間序列都可以。文字生圖時，就是用注意力把文字的意思「混入」圖像。本週作業：和 AI 討論出規格書，用 Vibe Coding 做一個 index.html，並用 GitHub Pages 公開。</p>
+    </section>
+
+    <!-- 5. 名詞小辭典 -->
+    <section id="glossary" class="block">
+      <h2><span class="no">04</span>名詞小辭典</h2>
+      <dl class="glossary">
+        <dt>RNN（遞歸神經網路）</dt><dd>會把上一次的輸出傳回來當記憶的神經網路。</dd>
+        <dt>隱藏狀態（Hidden State）</dt><dd>RNN 傳給下一步的「記憶」向量。</dd>
+        <dt>Query / Key / Value</dt><dd>注意力機制中，每個字的三種特徵代表向量。</dd>
+        <dt>自注意力（Self-attention）</dt><dd>句子裡每個字輪流當 query，去注意其他所有字。</dd>
+        <dt>多頭注意力（Multi-head）</dt><dd>用好幾組權重同時做注意力，看不同面向的關係。</dd>
+        <dt>位置編碼（Position Encoding）</dt><dd>加進詞嵌入的位置資訊，讓模型知道字的順序。</dd>
+        <dt>殘差連接（Residual / ResNet）</dt><dd>輸出 = 輸入 + 這層學到的東西，讓網路可以很深。</dd>
+        <dt>層正規化（Layer Normalization）</dt><dd>把一層的數值調整到平均 0、標準差 1，讓訓練更穩。</dd>
+      </dl>
+    </section>
+
+    <!-- 6. 自我測驗 -->
+    <section id="quiz" class="block quiz">
+      <h2><span class="no">05</span>自我測驗</h2>
+      <details>
+        <summary>Q1. Transformer 為什麼比 RNN 快？</summary>
+        <p>RNN 必須一個字一個字依序算；Transformer 的注意力只是矩陣乘法，可以一次平行算完。</p>
+      </details>
+      <details>
+        <summary>Q2. Q 和 K 做內積的結果代表什麼？</summary>
+        <p>代表這個字（query）和另一個字（key）的相關強度，經 softmax 後就是加權 value 的權重。</p>
+      </details>
+      <details>
+        <summary>Q3. 沒有位置編碼的話會出什麼問題？</summary>
+        <p>Transformer 是同時處理所有字，本身不知道字的先後順序，「狗咬人」和「人咬狗」會看起來一樣。</p>
+      </details>
+    </section>
+
+    <!-- 7. 我的心得 -->
+    <section id="reflection" class="block reflection">
+      <h2><span class="no">06</span>我的心得</h2>
+      <p>QKV 的直覺很像查資料：我帶著一個問題（Q），跟每份資料的標籤（K）比對，越相關的內容（V）就拿越多。</p>
+      <p>原來那個看起來很嚇人的 Transformer 公式，拆開來只是內積、softmax 和加權平均。</p>
+    </section>
+
+    <nav class="pager" data-current="05-attention" aria-label="上一週下一週"></nav>
+  </main>
+
+  <footer>
+    <div class="wrap">AI 課堂筆記本 · 內容整理自第 05 週課堂講義「AI 怎麼記得前面說過什麼？」</div>
+  </footer>
+
+  <script src="../assets/lessons.js"></script>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

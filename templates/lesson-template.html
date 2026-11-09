@@ -9,14 +9,16 @@
   <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
+  <!-- 頂部列：不要改。週次選單、主題切換由 app.js 自動加入 -->
   <header class="topbar">
     <div class="wrap">
-      <a class="brand" href="../index.html">AI 課堂<b>筆記本</b></a>
-      <nav><a href="../index.html#lessons">所有講義</a></nav>
+      <a class="brand" href="../index.html"><span class="logo">AI</span><span class="text">AI 課堂<b>筆記本</b></span></a>
+      <nav></nav>
     </div>
   </header>
 
-  <main class="wrap">
+  <!-- main 必須是 class="wrap lesson"；目錄由 app.js 依各區塊 h2 自動產生 -->
+  <main class="wrap lesson">
     <!-- 1. 頁首 -->
     <header class="lesson-head">
       <span class="week-tag">WEEK NN</span>
@@ -31,7 +33,7 @@
       <p class="quote">這週最核心的一句話，<mark>關鍵詞</mark>。</p>
     </section>
 
-    <!-- 3. 重點整理（3–6 張 .point） -->
+    <!-- 3. 重點整理（3–6 張 .point，編號自動產生） -->
     <section id="points" class="block">
       <h2><span class="no">02</span>重點整理</h2>
       <div class="points">
@@ -42,7 +44,9 @@
       </div>
     </section>
 
-    <!-- 4. 核心公式／圖解（.formula 公式框，或 .table-scroll > table 對照表，或 .compare 好壞對照，或 .tree 資料夾樹） -->
+    <!-- 4. 核心公式／圖解：可用的元件
+         .formula（公式框）、.math（單行數學式）、.flow（流程箭頭）、
+         .table-scroll > table（對照表）、.compare（好壞對照）、.tree（資料夾樹／程式）、.note（補充） -->
     <section id="formula" class="block">
       <h2><span class="no">03</span>核心公式</h2>
       <div class="formula">
@@ -52,6 +56,7 @@
         <div class="op">+</div>
         <div class="term">C<small>說明</small></div>
       </div>
+      <div class="flow"><span>步驟一</span><i>→</i><span>步驟二</span><i>→</i><span class="hl">結果</span></div>
     </section>
 
     <!-- 5. 名詞小辭典（4–8 個 dt/dd） -->
@@ -62,7 +67,7 @@
       </dl>
     </section>
 
-    <!-- 6. 自我測驗（3 題 details） -->
+    <!-- 6. 自我測驗（3 題 details；「全部展開」按鈕由 app.js 加入） -->
     <section id="quiz" class="block quiz">
       <h2><span class="no">05</span>自我測驗</h2>
       <details>
@@ -77,7 +82,7 @@
       <p>我學到……，我會這樣用……</p>
     </section>
 
-    <!-- data-current 改成本檔檔名（不含 .html） -->
+    <!-- data-current 改成本檔檔名（不含 .html）；已讀按鈕與上下週連結由 app.js 產生 -->
     <nav class="pager" data-current="NN-slug" aria-label="上一週下一週"></nav>
   </main>
 
@@ -86,5 +91,6 @@
   </footer>
 
   <script src="../assets/lessons.js"></script>
+  <script src="../assets/app.js"></script>
 </body>
 </html>

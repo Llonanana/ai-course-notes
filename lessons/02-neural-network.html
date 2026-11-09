@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WEEK 02 神經網路的概念｜AI 課堂筆記本</title>
+  <meta name="description" content="神經網路是一台函數學習機，靠 loss 與梯度下降慢慢學會。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="logo">AI</span><span class="text">AI 課堂<b>筆記本</b></span></a>
+      <nav></nav>
+    </div>
+  </header>
+
+  <main class="wrap lesson">
+    <!-- 1. 頁首 -->
+    <header class="lesson-head">
+      <span class="week-tag">WEEK 02</span>
+      <h1>神經網路的概念</h1>
+      <p class="summary">神經網路是一台函數學習機，靠 loss 與梯度下降慢慢學會。</p>
+      <ul class="tags"><li>神經元</li><li>Softmax</li><li>梯度下降</li></ul>
+    </header>
+
+    <!-- 2. 本週一句話 -->
+    <section id="oneliner" class="block oneliner">
+      <h2><span class="no">01</span>本週一句話</h2>
+      <p class="quote">神經網路是一台<mark>函數學習機</mark>：先隨便猜，再用 loss 算出錯了多少，用梯度下降一點一點修正。</p>
+    </section>
+
+    <!-- 3. 重點整理 -->
+    <section id="points" class="block">
+      <h2><span class="no">02</span>重點整理</h2>
+      <div class="points">
+        <div class="point">
+          <h3>輸入輸出都要是數字</h3>
+          <p>AI 只吃數字。更精確地說，輸入和輸出都是張量（tensor）：純量是 0 階、向量是 1 階、矩陣是 2 階。例如用過去 20 天、每天 N 個特徵預測股價，輸入就是 20 × N 的數字。</p>
+        </div>
+        <div class="point">
+          <h3>分類：one-hot 與 softmax</h3>
+          <p>三種八哥用 one-hot 編碼成 [1,0,0]、[0,1,0]、[0,0,1]。模型輸出三個分數，經過 softmax 變成加起來等於 1 的比例，例如 61%、28%、11%。</p>
+        </div>
+        <div class="point">
+          <h3>神經元怎麼算</h3>
+          <p>把輸入乘上權重後加總，再加上偏值（bias），最後通過激發函數（例如 ReLU）送出。權重和偏值都是學來的，合起來叫參數 θ。</p>
+        </div>
+        <div class="point">
+          <h3>打造 DNN 只要決定兩件事</h3>
+          <p>要幾層隱藏層、每層幾個神經元，每層之間完全連結。其他兩大天王：CNN 擅長圖形辨識，RNN 有記憶。不管哪種，基本單元都是神經元。</p>
+        </div>
+        <div class="point">
+          <h3>訓練就是讓 loss 變小</h3>
+          <p>架構固定後，θ 一決定，函數就決定了。loss function 計算模型答案和正確答案差多少，訓練的目標就是找出讓 loss 最小的 θ*。</p>
+        </div>
+        <div class="point">
+          <h3>梯度下降：往斜率反方向走</h3>
+          <p>切線斜率為正，就往左移；斜率為負，就往右移。乘上學習率 η 避免一次走太多跑過頭。參數不只一個時，就每個都做偏微分，合起來就是梯度。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 核心公式／圖解 -->
+    <section id="formula" class="block">
+      <h2><span class="no">03</span>核心公式</h2>
+      <p>一個神經元的計算：</p>
+      <div class="math">h = φ( w₁x₁ + w₂x₂ + w₃x₃ + b )</div>
+      <p>Softmax：先做指數轉換確保都是正數，再按比例分配：</p>
+      <div class="math">pᵢ = e^{aᵢ} / (e^{a₁} + e^{a₂} + … + e^{aₙ})</div>
+      <p>梯度下降：所有參數一起往 loss 變小的方向調整：</p>
+      <div class="formula">
+        <div class="term">θ<small>新的參數</small></div>
+        <div class="op">=</div>
+        <div class="term">θ<small>目前的參數</small></div>
+        <div class="op">−</div>
+        <div class="term">η ∇L<small>學習率 × 梯度</small></div>
+      </div>
+      <p>實作：用全連結神經網路辨識 MNIST 手寫數字。</p>
+      <div class="flow"><span>28×28 圖片</span><i>→</i><span>拉平成 784 維</span><i>→</i><span>Dense 100 · ReLU</span><i>→</i><span>Dense 100 · ReLU</span><i>→</i><span class="hl">Dense 10 · softmax</span></div>
+      <p class="note">「萬能近似定理」證明：只要一層夠寬的隱藏層，神經網路就能逼近你想學的函數。上個世紀神經網路沒有成功，是因為當時缺少足夠的算力、大量數據和好用的軟體。</p>
+    </section>
+
+    <!-- 5. 名詞小辭典 -->
+    <section id="glossary" class="block">
+      <h2><span class="no">04</span>名詞小辭典</h2>
+      <dl class="glossary">
+        <dt>張量（Tensor）</dt><dd>一堆排好的數字；純量、向量、矩陣都是張量。</dd>
+        <dt>One-hot 編碼</dt><dd>類別有幾種就用幾維向量，正確那一格是 1，其他是 0。</dd>
+        <dt>Softmax</dt><dd>把任意分數轉成全為正、加起來等於 1 的比例。</dd>
+        <dt>激發函數（Activation Function）</dt><dd>讓神經網路不只是線性計算，最常用的是 ReLU。</dd>
+        <dt>損失函數（Loss Function）</dt><dd>衡量模型答案和正確答案差多遠，越小越好。</dd>
+        <dt>梯度下降（Gradient Descent）</dt><dd>沿著梯度的反方向調整參數，讓 loss 變小。</dd>
+        <dt>學習率（Learning Rate）</dt><dd>每次調整的步伐大小，太大會跑過頭。</dd>
+        <dt>反向傳播（Backpropagation）</dt><dd>在神經網路上有效率地計算梯度的方法。</dd>
+      </dl>
+    </section>
+
+    <!-- 6. 自我測驗 -->
+    <section id="quiz" class="block quiz">
+      <h2><span class="no">05</span>自我測驗</h2>
+      <details>
+        <summary>Q1. 為什麼分類問題要做 softmax？</summary>
+        <p>讓輸出全部是正數且加起來等於 1，方便解讀成「有幾成可能是這一類」，也就是所謂的機率分布。</p>
+      </details>
+      <details>
+        <summary>Q2. 一個神經元裡，哪些數字是要學習的？</summary>
+        <p>權重 w 和偏值 b，合起來就是參數 θ。</p>
+      </details>
+      <details>
+        <summary>Q3. 梯度下降為什麼要乘上學習率？</summary>
+        <p>避免一次調太多、跑過最低點。學習率讓每一步走得小一點、穩一點。</p>
+      </details>
+    </section>
+
+    <!-- 7. 我的心得 -->
+    <section id="reflection" class="block reflection">
+      <h2><span class="no">06</span>我的心得</h2>
+      <p>原來「AI 在學習」就是在調參數，讓 loss 變小，聽起來沒有想像中神秘。</p>
+      <p>梯度下降的直覺很好懂：看斜率往哪邊下坡，就往那邊走一小步。以後聽到「訓練模型」，我腦中會浮現一顆球慢慢滾到谷底的畫面。</p>
+    </section>
+
+    <nav class="pager" data-current="02-neural-network" aria-label="上一週下一週"></nav>
+  </main>
+
+  <footer>
+    <div class="wrap">AI 課堂筆記本 · 內容整理自第 02 週課堂講義「神經網路的概念」</div>
+  </footer>
+
+  <script src="../assets/lessons.js"></script>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

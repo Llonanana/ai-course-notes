@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WEEK 04 LLM 只是在猜下一個字？｜AI 課堂筆記本</title>
+  <meta name="description" content="LLM 是看過超多文字的接話高手，溫度與 top-p 決定它怎麼選字。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="logo">AI</span><span class="text">AI 課堂<b>筆記本</b></span></a>
+      <nav></nav>
+    </div>
+  </header>
+
+  <main class="wrap lesson">
+    <!-- 1. 頁首 -->
+    <header class="lesson-head">
+      <span class="week-tag">WEEK 04</span>
+      <h1>LLM 只是在猜下一個字？</h1>
+      <p class="summary">LLM 是看過超多文字的接話高手，溫度與 top-p 決定它怎麼選字。</p>
+      <ul class="tags"><li>LLM</li><li>Temperature</li><li>Embedding</li></ul>
+    </header>
+
+    <!-- 2. 本週一句話 -->
+    <section id="oneliner" class="block oneliner">
+      <h2><span class="no">01</span>本週一句話</h2>
+      <p class="quote">LLM 只做一件事：<mark>看前面一堆字，猜下一個字</mark>，只是它讀過的字比人一輩子讀的多上萬倍。</p>
+    </section>
+
+    <!-- 3. 重點整理 -->
+    <section id="points" class="block">
+      <h2><span class="no">02</span>重點整理</h2>
+      <div class="points">
+        <div class="point">
+          <h3>不是用對話來訓練</h3>
+          <p>對話機器人並不是拿「客服問答」訓練出來的，而是用前面的字預測下一個字。這樣一來，世界上所有句子都能拿來當訓練資料。</p>
+        </div>
+        <div class="point">
+          <h3>一個字一個字接下去</h3>
+          <p>每個字都有編號。模型對所有可能的字算出分數，經 softmax 變成機率，抽出一個字接上去，再把它當成新的輸入，一路生成下去。</p>
+        </div>
+        <div class="point">
+          <h3>幻覺是特色，不是 bug</h3>
+          <p>Karpathy 說 LLM 是「作夢的機器」，它生成的內容本來就是幻覺，可能對、可能錯，甚至無所謂對錯。訓練目標是讓它很會接話。</p>
+        </div>
+        <div class="point">
+          <h3>讀過非常多東西</h3>
+          <p>人一輩子大約讀 10 億字的量級；Llama 的訓練資料約 15T，是人類的 1.5 萬倍。所以幾乎什麼話題它都接得上。</p>
+        </div>
+        <div class="point">
+          <h3>Embedding：字的意思</h3>
+          <p>One-hot 只是編號，沒有意思。Word2Vec 用「周圍的字猜中間」或「中間猜周圍」這類代理任務，學出帶有意思的向量，相似的字會靠在一起。</p>
+        </div>
+        <div class="point">
+          <h3>Prompt 只有兩個重點</h3>
+          <p>正確的資訊加上清楚的指引。最好的做法是和 AI 一起寫 prompt：補充只有你知道的內容、請 AI 反問你、整理成草稿，最後自己讀過並修改。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 核心公式／圖解 -->
+    <section id="formula" class="block">
+      <h2><span class="no">03</span>核心公式</h2>
+      <div class="math">P<sub>θ</sub>( 下一個字 = wᵢ ∣ x₁, x₂, …, x<sub>T</sub> )</div>
+      <div class="flow"><span>prompt</span><i>→</i><span>算出每個字的機率</span><i>→</i><span>依策略抽一個字</span><i>→</i><span>接到句子後面</span><i>→</i><span class="hl">重複</span></div>
+      <p>三種選字策略：</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>策略</th><th>怎麼做</th><th>效果</th></tr></thead>
+        <tbody>
+          <tr><td>Temperature τ</td><td>softmax 前把分數除以 τ</td><td>τ &gt; 1 更隨機；τ &lt; 1 更固定。實務上常設 τ = 1</td></tr>
+          <tr><td>Top-k</td><td>只從機率前 k 名抽，例如 k = 50</td><td>避免抽到很冷門的字；但有時候只有一個字合理</td></tr>
+          <tr><td>Top-p</td><td>從最高的字開始累加，直到超過 p（例如 0.9）</td><td>候選字數量自動調整，也叫 nucleus sampling</td></tr>
+        </tbody>
+      </table></div>
+      <div class="compare">
+        <div class="bad"><strong>✗ 陽春 prompt</strong>請介紹某個偶像團體。（得到一篇中規中矩、沒有感情的文章）</div>
+        <div class="good"><strong>✓ 好的 prompt</strong>請用粉絲的角度介紹這個團體，要包含出道時的高峰、低潮的那一年、最新專輯想傳達的態度……（補上只有你知道的內容）</div>
+      </div>
+      <p class="note">想在自己的電腦跑開源模型？以 4-bit 量化估算，200 億參數的模型大約需要 0.5 × 20 = 10 GB 的 VRAM，實際建議 16 GB。</p>
+    </section>
+
+    <!-- 5. 名詞小辭典 -->
+    <section id="glossary" class="block">
+      <h2><span class="no">04</span>名詞小辭典</h2>
+      <dl class="glossary">
+        <dt>大型語言模型（LLM）</dt><dd>用大量文字訓練、會預測下一個字的模型。</dd>
+        <dt>幻覺（Hallucination）</dt><dd>LLM 生成的內容；可能是對的，也可能是錯的。</dd>
+        <dt>溫度（Temperature）</dt><dd>調整選字隨機程度的參數。</dd>
+        <dt>Top-k</dt><dd>只從機率前 k 名的字裡抽。</dd>
+        <dt>Top-p（Nucleus Sampling）</dt><dd>從機率最高的字開始累加到 p，只在這些字裡抽。</dd>
+        <dt>詞嵌入（Word Embedding）</dt><dd>代表一個字意思的向量。</dd>
+        <dt>代理任務（Pretext Task）</dt><dd>為了學出好的表示向量而設計的小任務，不是最終目的。</dd>
+      </dl>
+    </section>
+
+    <!-- 6. 自我測驗 -->
+    <section id="quiz" class="block quiz">
+      <h2><span class="no">05</span>自我測驗</h2>
+      <details>
+        <summary>Q1. LLM 為什麼能用「世界上所有句子」來訓練？</summary>
+        <p>因為它的任務是用前面的字預測下一個字，任何一句話都能拆成很多組「前文 → 下一個字」的訓練資料。</p>
+      </details>
+      <details>
+        <summary>Q2. 把 temperature 調高會發生什麼事？</summary>
+        <p>各個字的機率會被拉近，選字更隨機、更有變化；調低則會更固定。</p>
+      </details>
+      <details>
+        <summary>Q3. 寫好 prompt 的兩個重點是什麼？</summary>
+        <p>正確的資訊（把背景和條件講清楚）加上清楚的指引（要做什麼、輸出成什麼樣子、給誰看）。</p>
+      </details>
+    </section>
+
+    <!-- 7. 我的心得 -->
+    <section id="reflection" class="block reflection">
+      <h2><span class="no">06</span>我的心得</h2>
+      <p>「LLM 是唬爛王」這個說法讓我印象很深。它不是在查資料，而是在接話，所以它說的話我一定要自己讀過、自己判斷。</p>
+      <p>和 AI 一起寫 prompt 的技巧很實用。以後我不會只丟一句話，而是先請 AI 反問我，把需求釐清再開始寫。</p>
+    </section>
+
+    <nav class="pager" data-current="04-next-token" aria-label="上一週下一週"></nav>
+  </main>
+
+  <footer>
+    <div class="wrap">AI 課堂筆記本 · 內容整理自第 04 週課堂講義「LLM 只是在猜下一個字？」</div>
+  </footer>
+
+  <script src="../assets/lessons.js"></script>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WEEK 06 打造自己的對話機器人｜AI 課堂筆記本</title>
+  <meta name="description" content="用 system prompt 給 AI 人設，再用 AISuite 寫出自己的聊天機器人。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><span class="logo">AI</span><span class="text">AI 課堂<b>筆記本</b></span></a>
+      <nav></nav>
+    </div>
+  </header>
+
+  <main class="wrap lesson">
+    <!-- 1. 頁首 -->
+    <header class="lesson-head">
+      <span class="week-tag">WEEK 06</span>
+      <h1>打造自己的對話機器人</h1>
+      <p class="summary">用 system prompt 給 AI 人設，再用 AISuite 寫出自己的聊天機器人。</p>
+      <ul class="tags"><li>System Prompt</li><li>AISuite</li><li>負責任使用</li></ul>
+    </header>
+
+    <!-- 2. 本週一句話 -->
+    <section id="oneliner" class="block oneliner">
+      <h2><span class="no">01</span>本週一句話</h2>
+      <p class="quote">一個對話機器人，就是用 <mark>system prompt 設定人設</mark>，再把整段對話歷史一起送給 LLM。</p>
+    </section>
+
+    <!-- 3. 重點整理 -->
+    <section id="points" class="block">
+      <h2><span class="no">02</span>重點整理</h2>
+      <div class="points">
+        <div class="point">
+          <h3>對話裡有三種角色</h3>
+          <p>system 是人設與規則，user 是使用者說的話，assistant 是 AI 的回覆。每次呼叫 API 都要把整串對話歷史送過去，模型才「記得」前面說過什麼。</p>
+        </div>
+        <div class="point">
+          <h3>人設的威力</h3>
+          <p>課堂示範「員瑛式思考」（Lucky Vicky）：不管遇到什麼事，都用正向的第一人稱口吻說明為什麼很幸運。只要加一段 system prompt，同一個模型就像換了一個人。</p>
+        </div>
+        <div class="point">
+          <h3>和 AI 一起寫 system prompt</h3>
+          <p>先和 AI 討論，請它收集資料；自己核對並修正錯誤（例如書名的正確譯名）；再請 AI 用 Markdown 整理成 system prompt；最後一定要自己讀過、修改。</p>
+        </div>
+        <div class="point">
+          <h3>小心太會說的機器人</h3>
+          <p>小編助理、股票分析師、選系諮商師都做得出來。只會推薦某個科系的諮商師也說得頭頭是道，所以不要因為 AI 講得有道理就照單全收。</p>
+        </div>
+        <div class="point">
+          <h3>用 AISuite 寫程式</h3>
+          <p>吳恩達老師的 AISuite 用統一的寫法呼叫不同廠商的模型，換模型只要改一個字串。API 金鑰放在 Colab 的 Secrets，不要直接寫在程式裡。</p>
+        </div>
+        <div class="point">
+          <h3>負責任地使用 AI</h3>
+          <p>AI 生成的都是幻覺，一定要讀過再用。不要貼個資、機密或考題，雲端對話紀錄可能外洩。輸出有沒有侵權、正不正確，是使用者的責任。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 核心公式／圖解 -->
+    <section id="formula" class="block">
+      <h2><span class="no">03</span>核心程式</h2>
+      <div class="flow"><span class="hl">system：人設</span><i>+</i><span>user：問題</span><i>+</i><span>assistant：回覆</span><i>+</i><span>user：再問</span><i>→</i><span>LLM</span></div>
+      <pre class="tree">import aisuite as ai
+      client = ai.Client()
+
+      messages = [
+          {"role": "system", "content": "你的人設與規則"},
+          {"role": "user", "content": "使用者的輸入"},
+      ]
+
+      response = client.chat.completions.create(
+          model="openai:gpt-4o",   # 換模型只要改這裡
+          messages=messages)
+
+      reply = response.choices[0].message.content</pre>
+      <p>想用開源模型的話：</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>方式</th><th>特色</th></tr></thead>
+        <tbody>
+          <tr><td>LM Studio</td><td>有圖形介面，用起來像一般聊天 App</td></tr>
+          <tr><td>Ollama</td><td>簡潔的終端機工具；Ollama Cloud 可以在雲端跑超大模型（需訂閱）</td></tr>
+          <tr><td>Groq</td><td>免費 API、速度很快，但可選的模型不多</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">真正在自己電腦上跑模型、資料不外傳，就能避開把對話交給雲端服務的風險。至於使用中國模型，比起「刻意審查」，更要留意的是訓練資料裡的價值觀，可能潛移默化影響經常使用的人。</p>
+    </section>
+
+    <!-- 5. 名詞小辭典 -->
+    <section id="glossary" class="block">
+      <h2><span class="no">04</span>名詞小辭典</h2>
+      <dl class="glossary">
+        <dt>System Prompt</dt><dd>對話開始前給 AI 的人設與規則。</dd>
+        <dt>User / Assistant</dt><dd>對話中使用者和 AI 這兩種角色。</dd>
+        <dt>API 金鑰（API Key）</dt><dd>呼叫模型服務的密碼，不能公開。</dd>
+        <dt>AISuite</dt><dd>吳恩達老師的 Python 套件，用同一套寫法呼叫各家模型。</dd>
+        <dt>LM Studio / Ollama</dt><dd>在自己電腦上跑開源 LLM 的工具。</dd>
+        <dt>VRAM</dt><dd>顯示卡記憶體，決定能跑多大的模型。</dd>
+        <dt>心智理論（Theory of Mind）</dt><dd>理解他人想法的能力；有人發現 GPT 的表現接近，但不代表它有意識。</dd>
+      </dl>
+    </section>
+
+    <!-- 6. 自我測驗 -->
+    <section id="quiz" class="block quiz">
+      <h2><span class="no">05</span>自我測驗</h2>
+      <details>
+        <summary>Q1. 為什麼每次呼叫 API 都要送整串 messages？</summary>
+        <p>LLM 本身不會記得上一次對話，必須把對話歷史一起送過去，它才知道前面聊了什麼。</p>
+      </details>
+      <details>
+        <summary>Q2. system、user、assistant 各代表什麼？</summary>
+        <p>system 是人設與規則；user 是使用者的輸入；assistant 是 AI 的回覆。</p>
+      </details>
+      <details>
+        <summary>Q3. 請舉出兩個負責任使用 AI 的做法。</summary>
+        <p>例如：AI 生成的內容一定要自己讀過再用；不要把個資、機密或考題貼給雲端 AI；自己確認有沒有侵權、資訊對不對。</p>
+      </details>
+    </section>
+
+    <!-- 7. 我的心得 -->
+    <section id="reflection" class="block reflection">
+      <h2><span class="no">06</span>我的心得</h2>
+      <p>一段 system prompt 就能讓 AI 變成完全不同的角色，這讓我想做一個專屬的讀書陪伴機器人。</p>
+      <p>選系諮商師的例子提醒我：AI 很會說，不代表它說得對。越有說服力的回答，我越要停下來想一想。</p>
+    </section>
+
+    <nav class="pager" data-current="06-chatbot" aria-label="上一週下一週"></nav>
+  </main>
+
+  <footer>
+    <div class="wrap">AI 課堂筆記本 · 內容整理自第 06 週課堂講義「打造自己的對話機器人」</div>
+  </footer>
+
+  <script src="../assets/lessons.js"></script>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

@@ -10,38 +10,55 @@
 <body>
   <header class="topbar">
     <div class="wrap">
-      <a class="brand" href="index.html">AI 課堂<b>筆記本</b></a>
-      <nav><a href="#lessons">講義</a><a href="#howto">怎麼做的</a></nav>
+      <a class="brand" href="index.html"><span class="logo">AI</span><span class="text">AI 課堂<b>筆記本</b></span></a>
+      <nav><a href="#units" class="hide-sm">講義</a><a href="#howto" class="hide-sm">怎麼做的</a></nav>
     </div>
   </header>
 
   <main class="wrap">
     <section class="hero">
-      <div class="kicker">// AI COURSE NOTES</div>
-      <h1>一週一頁，<br>十分鐘抓到重點。</h1>
-      <p>把 AI 課程每一週的內容整理成固定格式的講義：一句話、重點卡、核心公式、名詞小辭典、自我測驗，還有我自己的心得。</p>
-      <div class="stat">目前共 <strong id="lesson-count">0</strong> 篇講義</div>
+      <div>
+        <div class="kicker">// AI COURSE NOTES</div>
+        <h1>一週一頁，<br><em>十分鐘</em>抓到重點。</h1>
+        <p>把 AI 課程每週內容整理成固定格式的講義：一句話、重點卡、核心公式、名詞小辭典、自我測驗，還有我自己的心得。</p>
+        <div class="hero-actions">
+          <a class="btn primary" id="continue" href="lessons/01-no-anxiety.html">從這裡開始 →</a>
+          <a class="btn" href="#units">瀏覽全部講義</a>
+        </div>
+      </div>
+      <aside class="stats" aria-label="我的學習進度">
+        <div class="row"><span class="label">我的學習進度</span><span><span class="big" id="stat-done">0</span><span class="label"> / <span id="stat-total">0</span> 週</span></span></div>
+        <div class="bar"><span id="stat-bar" style="width:0"></span></div>
+        <div class="dots" id="stat-dots"></div>
+      </aside>
     </section>
 
-    <section id="lessons" aria-label="講義列表">
-      <div id="lesson-list" class="lesson-grid"></div>
-    </section>
+    <div class="toolbar">
+      <label class="search"><span class="sr-only">搜尋講義</span>
+        <input id="q" type="search" placeholder="搜尋講義，例如：RAG、梯度下降、prompt" autocomplete="off"><kbd>/</kbd>
+      </label>
+      <div class="chips" id="chips" role="group" aria-label="依單元篩選"></div>
+    </div>
+
+    <div id="units"></div>
+    <p class="empty" id="empty">找不到符合的講義，換個關鍵字試試看。</p>
 
     <section id="howto" class="howto">
       <h2>這個網站怎麼做的？</h2>
       <p>整個網站是照著專案裡的 <code>AGENTS.md</code>（AI 的員工手冊）請 AI 完成的。新增一週講義只要：</p>
       <ol>
-        <li>把上課資料丟給 AI</li>
-        <li>說「請先讀 AGENTS.md，再新增第 N 週講義」</li>
+        <li>把上課資料放進 <code>source/</code></li>
+        <li>對 AI 說「請先讀 AGENTS.md，再新增第 N 週講義」</li>
         <li>檢查 AI 回報的內容，沒問題就推上 GitHub</li>
       </ol>
     </section>
   </main>
 
   <footer>
-    <div class="wrap">AI 課堂筆記本 · 依照 AGENTS.md 規則製作 · 內容整理自課堂講義</div>
+    <div class="wrap">AI 課堂筆記本 · 依照 AGENTS.md 規則製作 · 內容整理自課堂講義 · 閱讀進度只存在你自己的瀏覽器</div>
   </footer>
 
   <script src="assets/lessons.js"></script>
+  <script src="assets/app.js"></script>
 </body>
 </html>
