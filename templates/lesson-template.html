@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 改成：WEEK NN 短標題｜AI 課堂筆記本 -->
+  <title>WEEK NN 標題｜AI 課堂筆記本</title>
+  <meta name="description" content="一句話摘要（與 lessons.js 的 summary 相同）">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../index.html">AI 課堂<b>筆記本</b></a>
+      <nav><a href="../index.html#lessons">所有講義</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- 1. 頁首 -->
+    <header class="lesson-head">
+      <span class="week-tag">WEEK NN</span>
+      <h1>標題</h1>
+      <p class="summary">一句話摘要（30 字內）</p>
+      <ul class="tags"><li>標籤1</li><li>標籤2</li></ul>
+    </header>
+
+    <!-- 2. 本週一句話（20–40 字，可用 <mark> 標一個關鍵詞） -->
+    <section id="oneliner" class="block oneliner">
+      <h2><span class="no">01</span>本週一句話</h2>
+      <p class="quote">這週最核心的一句話，<mark>關鍵詞</mark>。</p>
+    </section>
+
+    <!-- 3. 重點整理（3–6 張 .point） -->
+    <section id="points" class="block">
+      <h2><span class="no">02</span>重點整理</h2>
+      <div class="points">
+        <div class="point">
+          <h3>重點小標題</h3>
+          <p>2–4 句說明。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 核心公式／圖解（.formula 公式框，或 .table-scroll > table 對照表，或 .compare 好壞對照，或 .tree 資料夾樹） -->
+    <section id="formula" class="block">
+      <h2><span class="no">03</span>核心公式</h2>
+      <div class="formula">
+        <div class="term">A<small>說明</small></div>
+        <div class="op">=</div>
+        <div class="term">B<small>說明</small></div>
+        <div class="op">+</div>
+        <div class="term">C<small>說明</small></div>
+      </div>
+    </section>
+
+    <!-- 5. 名詞小辭典（4–8 個 dt/dd） -->
+    <section id="glossary" class="block">
+      <h2><span class="no">04</span>名詞小辭典</h2>
+      <dl class="glossary">
+        <dt>中文（English）</dt><dd>一句白話解釋。</dd>
+      </dl>
+    </section>
+
+    <!-- 6. 自我測驗（3 題 details） -->
+    <section id="quiz" class="block quiz">
+      <h2><span class="no">05</span>自我測驗</h2>
+      <details>
+        <summary>Q1. 問題？</summary>
+        <p>答案。</p>
+      </details>
+    </section>
+
+    <!-- 7. 我的心得（第一人稱 3–5 句） -->
+    <section id="reflection" class="block reflection">
+      <h2><span class="no">06</span>我的心得</h2>
+      <p>我學到……，我會這樣用……</p>
+    </section>
+
+    <!-- data-current 改成本檔檔名（不含 .html） -->
+    <nav class="pager" data-current="NN-slug" aria-label="上一週下一週"></nav>
+  </main>
+
+  <footer>
+    <div class="wrap">AI 課堂筆記本 · 內容整理自第 NN 週課堂講義「標題」</div>
+  </footer>
+
+  <script src="../assets/lessons.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WEEK 09 換你當老闆｜AI 課堂筆記本</title>
+  <meta name="description" content="從「問 AI」變成「交辦給 AI」，學會當一個說清楚的好老闆。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="../index.html">AI 課堂<b>筆記本</b></a>
+      <nav><a href="../index.html#lessons">所有講義</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- 1. 頁首 -->
+    <header class="lesson-head">
+      <span class="week-tag">WEEK 09</span>
+      <h1>換你當老闆：Agentic Work 與 AI 工作現場</h1>
+      <p class="summary">從「問 AI」變成「交辦給 AI」，學會當一個說清楚的好老闆。</p>
+      <ul class="tags"><li>Agentic AI</li><li>Harness</li><li>AGENTS.md</li></ul>
+    </header>
+
+    <!-- 2. 本週一句話 -->
+    <section id="oneliner" class="block oneliner">
+      <h2><span class="no">01</span>本週一句話</h2>
+      <p class="quote">AI Agent 不是更聰明的聊天機器人，而是<mark>教 AI 用我們的方法做事</mark>——我們出一張嘴，它把事情做完。</p>
+    </section>
+
+    <!-- 3. 重點整理 -->
+    <section id="points" class="block">
+      <h2><span class="no">02</span>重點整理</h2>
+      <div class="points">
+        <div class="point">
+          <h3>AI 出一張嘴，事情都你做</h3>
+          <p>只會聊天的 LLM 叫你整理桌面時，要你一個個抄檔名、自己建資料夾、自己拖檔案。它只會生成文字，碰不到你的電腦。</p>
+        </div>
+        <div class="point">
+          <h3>給它工具，角色就反過來</h3>
+          <p>有了能讀寫檔案的工具，AI 可以自己打開資料夾、提出計畫、你點頭後就動手搬檔，最後回報結果。換你當老闆。</p>
+        </div>
+        <div class="point">
+          <h3>模型差不多，差在 Harness</h3>
+          <p>各家模型能力接近，真正決定好不好用的是「工作裝備」：工作環境、工具、連接器、技能、規則檔、排程。</p>
+        </div>
+        <div class="point">
+          <h3>好老闆要說清楚三件事</h3>
+          <p>要什麼成品、有什麼限制、怎麼算做完。重點就是：不要讓 AI 猜。</p>
+        </div>
+        <div class="point">
+          <h3>專案資料夾 + 員工手冊</h3>
+          <p>替專案開一個資料夾讓 AI 存取，裡面放 <code>AGENTS.md</code> 或 <code>CLAUDE.md</code>。每次開新對話先叫它讀，換電腦、換對話都接得上。</p>
+        </div>
+        <div class="point">
+          <h3>手冊不用一次寫完美</h3>
+          <p>規格書可以跟 AI 一起討論出來，做的過程中發現問題再持續改寫。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 核心公式／圖解 -->
+    <section id="formula" class="block">
+      <h2><span class="no">03</span>核心公式</h2>
+      <div class="formula">
+        <div class="term">AI Agent<small>會做事的 AI</small></div>
+        <div class="op">=</div>
+        <div class="term">AI Model<small>大腦：理解、規劃、判斷</small></div>
+        <div class="op">+</div>
+        <div class="term">Harness<small>工作裝備：真的去執行</small></div>
+      </div>
+
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th></th><th>對話式 Chat</th><th>代理式 Agentic</th></tr></thead>
+          <tbody>
+            <tr><td>你在做的事</td><td>問問題</td><td>交辦一件工作</td></tr>
+            <tr><td>AI 像是</td><td>顧問</td><td>員工、同事</td></tr>
+            <tr><td>過程</td><td>一問一答，你全程在場</td><td>多步驟自己做，你可以離開</td></tr>
+            <tr><td>能碰的東西</td><td>對話框裡的文字</td><td>檔案、瀏覽器、工具</td></tr>
+            <tr><td>你拿到的</td><td>一段回答</td><td>一份成品</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="compare">
+        <div class="bad"><strong>✗ 爛的交辦</strong>幫我整理桌面。</div>
+        <div class="good"><strong>✓ 好的交辦</strong>幫我整理「桌面」這個資料夾。依用途分類，資料夾名稱用中文。不要刪除任何檔案，看不出用途的放進「待確認」。動手前先給我看分類計畫，做完列出每個檔案搬到哪裡。</div>
+      </div>
+    </section>
+
+    <!-- 5. 名詞小辭典 -->
+    <section id="glossary" class="block">
+      <h2><span class="no">04</span>名詞小辭典</h2>
+      <dl class="glossary">
+        <dt>代理式（Agentic）</dt><dd>AI 自己分步驟完成一件工作，而不是只回答問題。</dd>
+        <dt>Harness</dt><dd>模型以外的工作裝備，負責把「我要開這個檔案」真的執行，再把結果回報給模型。</dd>
+        <dt>工具（Tool）</dt><dd>讓 AI 能動手的功能，例如讀寫檔案、終端機、瀏覽器、網路搜尋。</dd>
+        <dt>連接器（MCP）</dt><dd>把 AI 接上 Gmail、行事曆、雲端硬碟等你平常用的 App。</dd>
+        <dt>技能（Skill）</dt><dd>一個資料夾加一份 <code>SKILL.md</code>，教 AI 某件事的標準作業流程。</dd>
+        <dt>AGENTS.md / CLAUDE.md</dt><dd>專案的員工手冊，AI 每次上工前先讀。<code>CLAUDE.md</code> 是 Claude 專用，<code>AGENTS.md</code> 是一般通用名稱。</dd>
+        <dt>LLM Wiki</dt><dd>Karpathy 提出的做法：把你找到的原始資料（raw）交給 AI，整理成自己的 Wikipedia（wiki）。</dd>
+      </dl>
+    </section>
+
+    <!-- 6. 自我測驗 -->
+    <section id="quiz" class="block quiz">
+      <h2><span class="no">05</span>自我測驗</h2>
+      <details>
+        <summary>Q1. 只會生成文字的 LLM，為什麼沒辦法幫你整理桌面？</summary>
+        <p>因為它沒有工具，打不開你的資料夾、也不能建資料夾或搬檔案，只能「出一張嘴」，事情還是你在做。</p>
+      </details>
+      <details>
+        <summary>Q2. 好老闆交辦工作要說清楚哪三件事？</summary>
+        <p>要什麼成品（放哪、什麼格式）、有什麼限制（哪些能動、哪些不能動）、怎麼算做完（要怎麼驗收）。</p>
+      </details>
+      <details>
+        <summary>Q3. 為什麼專案要有 AGENTS.md，而不是一直在同一個對話裡做？</summary>
+        <p>對話會越拉越長，換一台電腦或開新對話就讀不到之前的內容。把規則寫進檔案，每次開新對話叫 AI 先讀，就能接著做。</p>
+      </details>
+    </section>
+
+    <!-- 7. 我的心得 -->
+    <section id="reflection" class="block reflection">
+      <h2><span class="no">06</span>我的心得</h2>
+      <p>以前我把 AI 當成查資料的顧問，問一句答一句，最後動手的還是我。這週才發現，差別不在模型多聰明，而在我有沒有給它工具、有沒有把話說清楚。</p>
+      <p>我最想帶走的是「不要讓 AI 猜」：要什麼成品、有什麼限制、怎麼驗收。這個網站本身就是練習——我先寫好 <code>AGENTS.md</code>，之後每週新增講義，只要交辦一句話就好。</p>
+    </section>
+
+    <nav class="pager" data-current="09-boss" aria-label="上一週下一週"></nav>
+  </main>
+
+  <footer>
+    <div class="wrap">AI 課堂筆記本 · 內容整理自第 09 週課堂講義「換你當老闆」</div>
+  </footer>
+
+  <script src="../assets/lessons.js"></script>
+</body>
+</html>
