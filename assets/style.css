@@ -117,14 +117,15 @@ button { font: inherit; color: inherit; cursor: pointer; }
   box-shadow: var(--shadow); transition: transform .15s, border-color .15s;
 }
 .lesson-card:hover { transform: translateY(-3px); border-color: var(--accent); }
-.lesson-card .num { grid-row: span 3; font: 700 34px/1 "JetBrains Mono", monospace; color: var(--accent); opacity: .9; }
+.lesson-card .num { grid-row: span 3; font: 700 34px/1 "JetBrains Mono", monospace; color: var(--accent); display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 40px; }
+.lesson-card .num small { font: 500 12px/1 "Noto Sans TC", sans-serif; color: var(--ink-soft); } /* 卡片週次：第 / 數字 / 週 直排 */
 .lesson-card h3 { font-size: 18.5px; }
 .lesson-card p { margin: 0; color: var(--ink-soft); font-size: 14.5px; line-height: 1.7; }
 .lesson-card { align-content: start; }
 .lesson-card .tags { margin-top: 8px; align-self: start; }
 .lesson-card .check { position: absolute; top: 14px; right: 14px; font-size: 12px; color: var(--ok); background: var(--ok-soft); border-radius: 99px; padding: 0 10px; display: none; }
 .lesson-card.done .check { display: block; }
-.week-tag { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--accent); letter-spacing: .08em; }
+.week-tag { font: 700 14px "Noto Sans TC", sans-serif; color: var(--accent); letter-spacing: .02em; } /* 週次標籤「第 X 週」 */
 .tags { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
 .tags li { font-size: 12.5px; background: var(--accent-soft); color: var(--ink); padding: 1px 10px; border-radius: 999px; }
 
@@ -233,6 +234,7 @@ th { font-weight: 700; background: var(--accent-soft); white-space: nowrap; }
 
 /* 我的心得 */
 .reflection { border-style: dashed; border-width: 2px; box-shadow: none; }
+.todo { color: var(--ink-soft); font-style: italic; } /* 待使用者填寫的提示文字 */
 
 /* 補充說明 */
 .note { font-size: 14.5px; color: var(--ink-soft); background: var(--paper-2); border-radius: 10px; padding: 10px 14px; margin-top: 12px !important; }

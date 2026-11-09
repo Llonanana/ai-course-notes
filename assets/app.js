@@ -50,7 +50,7 @@
     setText("stat-total", L.length);
     const bar = $("#stat-bar"); if (bar) bar.style.width = (L.length ? (n / L.length) * 100 : 0) + "%";
     const dots = $("#stat-dots");
-    if (dots) dots.innerHTML = L.map((l) => `<a href="${lessonHref(l.slug)}" class="${done.has(l.slug) ? "done" : ""}" title="WEEK ${pad(l.week)} ${esc(l.title)}${done.has(l.slug) ? "（已讀）" : ""}">${pad(l.week)}</a>`).join("");
+    if (dots) dots.innerHTML = L.map((l) => `<a href="${lessonHref(l.slug)}" class="${done.has(l.slug) ? "done" : ""}" title="第 ${l.week} 週 ${esc(l.title)}${done.has(l.slug) ? "（已讀）" : ""}">${pad(l.week)}</a>`).join("");
 
     // 繼續閱讀按鈕
     const cont = $("#continue");
@@ -58,7 +58,7 @@
       const target = L.find((l) => l.slug === last) || L.find((l) => !done.has(l.slug)) || L[0];
       if (target) {
         cont.href = lessonHref(target.slug);
-        cont.innerHTML = `${last ? "繼續閱讀" : "從這裡開始"}：WEEK ${pad(target.week)} →`;
+        cont.innerHTML = `${last ? "繼續閱讀" : "從這裡開始"}：第 ${target.week} 週 →`;
       }
     }
 
@@ -70,7 +70,7 @@
         <div class="unit-head"><h2>${esc(u.name)}</h2><span>${esc(u.desc)}</span></div>
         <div class="lesson-grid">${items.map((l) => `
           <a class="lesson-card${done.has(l.slug) ? " done" : ""}" href="${lessonHref(l.slug)}" data-search="${esc((l.title + " " + l.summary + " " + l.tags.join(" ")).toLowerCase())}" data-tags="${esc(l.tags.join("|"))}">
-            <span class="num">${pad(l.week)}</span>
+            <span class="num"><small>第</small>${l.week}<small>週</small></span>
             <h3>${esc(l.title)}</h3>
             <p>${esc(l.summary)}</p>
             <ul class="tags">${l.tags.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>
@@ -130,7 +130,7 @@
       const sel = document.createElement("select");
       sel.className = "week-select";
       sel.setAttribute("aria-label", "切換週次");
-      sel.innerHTML = L.map((l) => `<option value="${l.slug}"${l.slug === slug ? " selected" : ""}>W${pad(l.week)} ${esc(l.title)}</option>`).join("");
+      sel.innerHTML = L.map((l) => `<option value="${l.slug}"${l.slug === slug ? " selected" : ""}>第${l.week}週 ${esc(l.title)}</option>`).join("");
       sel.addEventListener("change", () => { location.href = sel.value + ".html"; });
       nav.insertBefore(sel, nav.firstChild);
     }
@@ -211,8 +211,8 @@
 
     // 上一週／下一週
     pager.innerHTML = `
-      ${prev ? `<a href="${prev.slug}.html" class="prev">← WEEK ${pad(prev.week)}<span>${esc(prev.title)}</span></a>` : ""}
-      ${next ? `<a href="${next.slug}.html" class="next">WEEK ${pad(next.week)} →<span>${esc(next.title)}</span></a>` : `<a href="${homeHref}" class="next">回到目錄 →<span>你已經看到最新一週了</span></a>`}
+      ${prev ? `<a href="${prev.slug}.html" class="prev">← 第 ${prev.week} 週<span>${esc(prev.title)}</span></a>` : ""}
+      ${next ? `<a href="${next.slug}.html" class="next">第 ${next.week} 週 →<span>${esc(next.title)}</span></a>` : `<a href="${homeHref}" class="next">回到目錄 →<span>你已經看到最新一週了</span></a>`}
       <div class="hint">小技巧：按鍵盤 <kbd>←</kbd> <kbd>→</kbd> 切換上一週／下一週</div>`;
     document.addEventListener("keydown", (e) => {
       if (e.altKey || e.ctrlKey || e.metaKey || /input|select|textarea/i.test(document.activeElement.tagName)) return;
